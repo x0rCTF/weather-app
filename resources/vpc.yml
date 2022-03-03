@@ -138,25 +138,6 @@ Resources:
       VPCSecurityGroups: 
         - !Ref RDSSecurityGroup
 
-  # SQS2RDS:
-  # Type: AWS::EC2::SecurityGroup
-  # Properties: 
-  #   GroupDescription: "SQS2RDS"
-  #   GroupName: SQS2RDS
-  #   SecurityGroupIngress: 
-  #     -   CidrIp: !Ref DBSubA
-  #         FromPort: 3306
-  #         IpProtocol: tcp
-  #         ToPort: 3306
-  #     -   CidrIp: !Ref DBSubB
-  #         FromPort: 3306
-  #         IpProtocol: tcp
-  #         ToPort: 3306
-  #   VpcId: !Ref VPC
-  #   Tags: 
-  #     - Key: Name
-  #       Value: SQS2RDS
-
           ####################
           # JumpBox Instance #
           ####################
@@ -192,7 +173,7 @@ Resources:
 
             USE ${param:DBName};
             CREATE TABLE IF NOT EXISTS WeatherApp (
-                messageId VARCHAR(255) NOT NULL,,
+                messageId VARCHAR(255) NOT NULL,
                 City VARCHAR(255) NOT NULL,
                 Country VARCHAR(255) NOT NULL,
                 Description VARCHAR(255) NOT NULL,
@@ -200,7 +181,7 @@ Resources:
                 Temp_min INT NOT NULL,
                 Temp_max INT NOT NULL,
                 Date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP   
-            ); 
+            );
 
             EOF
       NetworkInterfaces:       
@@ -234,23 +215,12 @@ Resources:
     Properties:
       DisplayName: "G2 WeatherApp"
       TopicName: SNSEMAIL
+      Subscription:
+      - Endpoint: hridimoski@gmail.com
+        Protocol: email
+      - Endpoint: alekss.stevanoski@gmail.com
+        Protocol: email
 
-      ###############
-      # e-mail subs # 
-      ###############
-  sub1:
-    Type: AWS::SNS::Subscription
-    Properties:
-      Endpoint: hridimoski@gmail.com
-      Protocol: email
-      TopicArn: !Ref SNSEMAIL
-
-  sub2:
-    Type: AWS::SNS::Subscription
-    Properties:
-      Endpoint: alekss.stevanoski@gmail.com
-      Protocol: email
-      TopicArn: !Ref SNSEMAIL
 
         #######
         # QUE #  
