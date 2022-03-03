@@ -200,7 +200,6 @@ Resources:
                 Temp_min INT NOT NULL,
                 Temp_max INT NOT NULL,
                 Date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP   
-
             ); 
 
             EOF
