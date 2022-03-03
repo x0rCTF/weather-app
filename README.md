@@ -2,5 +2,8 @@
 
 ```
 mysql: XXXXXX.XXXXXXXX.us-east-1.rds.amazonaws.com
-jumpbox: 54.221.160.130
+
+
+aws ec2 describe-instances --query "Reservations[*].Instances[*].PublicIpAddress"   --output=text
+jumpbox: <IP>
 ```
